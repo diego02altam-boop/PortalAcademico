@@ -1,0 +1,217 @@
+/* =========================================================
+   PortalAcademico — PRO UI (Light + Dark)
+   Requiere Bootstrap 5 y fuente Inter (ver _Layout)
+   ========================================================= */
+
+/* ---------- Design tokens ---------- */
+:root{
+  /* Light palette */
+  --brand:        #2563eb;
+  --brand-600:    #1d4ed8;
+  --ink:          #0f172a;
+  --ink-2:        #111827;
+  --muted:        #64748b;
+  --bg:           #f6f8fb;
+  --surface:      #ffffff;
+  --border:       #e5e7eb;
+  --shadow:       0 10px 28px rgba(2,6,23,.06);
+
+  /* Semantic */
+  --success:      #16a34a;
+  --warning:      #ca8a04;
+  --danger:       #dc2626;
+  --info:         #0891b2;
+
+  --radius-lg:    16px;
+  --radius-md:    12px;
+  --radius-sm:    8px;
+}
+
+/* Dark mode by attribute: <html data-theme="dark"> o <body data-theme="dark"> */
+:where(html[data-theme="dark"], body[data-theme="dark"]) {
+  --brand:        #60a5fa;
+  --brand-600:    #3b82f6;
+  --ink:          #e5e7eb;
+  --ink-2:        #f1f5f9;
+  --muted:        #9aa4b2;
+  --bg:           #0b1220;
+  --surface:      #0f172a;
+  --border:       #1f2937;
+  --shadow:       0 16px 40px rgba(0,0,0,.45);
+  --success:      #22c55e;
+  --warning:      #eab308;
+  --danger:       #f87171;
+  --info:         #22d3ee;
+}
+
+/* ---------- Base ---------- */
+html,body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+a{ color:var(--brand); text-decoration:none; transition:color .15s ease; }
+a:hover{ color:var(--brand-600); text-decoration:underline; }
+h1,h2,h3,h4{ font-weight:800; letter-spacing:.2px; }
+h1{ font-size:2rem; }
+
+/* ---------- Layout ---------- */
+.app-navbar{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 2px 18px rgba(2,6,23,.05);
+}
+.navbar-brand{ font-weight:800; letter-spacing:.2px; }
+.nav-link{ font-weight:600; color:var(--ink-2) !important; }
+.nav-link:hover{ color:var(--brand) !important; }
+
+.app-main{ padding:2rem 0 2.5rem; }
+
+/* ---------- Cards ---------- */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow);
+}
+.card .card-body{ padding:1.15rem 1.25rem; }
+.card-compact .card-body{ padding:.75rem 1rem; }
+
+/* ---------- Forms ---------- */
+.form-label{ font-weight:600; color:var(--muted); margin-bottom:.3rem; }
+.form-control, .form-select{
+  border-radius:var(--radius-md);
+  border-color:var(--border);
+  background:var(--surface);
+  color:var(--ink);
+  padding:.62rem .9rem;
+}
+.form-control:focus, .form-select:focus{
+  border-color:var(--brand);
+  box-shadow:0 0 0 .25rem color-mix(in srgb, var(--brand) 20%, transparent);
+}
+.input-group .form-control{
+  border-top-left-radius:var(--radius-md);
+  border-bottom-left-radius:var(--radius-md);
+}
+.form-check-input{
+  border-color:var(--border);
+}
+.form-check-input:checked{
+  background-color:var(--brand);
+  border-color:var(--brand);
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  border-radius:var(--radius-md);
+  font-weight:700;
+  letter-spacing:.2px;
+  transition:filter .15s ease, transform .02s ease;
+}
+.btn:active{ transform:translateY(1px); }
+.btn-primary{
+  background:var(--brand);
+  border-color:var(--brand);
+}
+.btn-primary:hover{ background:var(--brand-600); border-color:var(--brand-600); }
+.btn-outline-primary{ color:var(--brand); border-color:var(--brand); }
+.btn-outline-primary:hover{ background:var(--brand); color:#fff; }
+.btn-light{ color:var(--ink); }
+.action-bar .btn{ margin-left:.4rem; padding:.38rem .64rem; }
+
+/* ---------- Tables (Desktop) ---------- */
+.table{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  margin-bottom:0;
+}
+.table thead th{
+  background:color-mix(in srgb, var(--surface) 60%, #f1f5f9);
+  border-bottom:1px solid var(--border) !important;
+  color:var(--ink-2);
+  font-weight:700;
+}
+.table > :not(caption) > * > *{
+  padding:.95rem .95rem; vertical-align:middle; border-color:var(--border);
+}
+.table tbody tr{ transition:background .15s ease; }
+.table tbody tr:hover{ background:color-mix(in srgb, var(--surface) 75%, #f9fafb); }
+
+/* ---------- Tables (Mobile stacked) ---------- */
+@media (max-width: 992px){
+  .table thead{ display:none; }
+  .table tbody tr{
+    display:block; margin:0 0 1rem; border:1px solid var(--border);
+    border-radius:var(--radius-md); overflow:hidden;
+  }
+  .table tbody td{
+    display:flex; justify-content:space-between; gap:1rem;
+    padding:.85rem 1rem; border-bottom:1px dashed var(--border);
+  }
+  .table tbody td:last-child{ border-bottom:none; }
+  .table tbody td::before{
+    content:attr(data-th);
+    font-weight:700; color:var(--muted);
+  }
+}
+
+/* ---------- Alerts ---------- */
+.alert{
+  border-radius:var(--radius-md);
+  border:1px solid var(--border);
+  box-shadow:0 6px 18px rgba(2,6,23,.06);
+}
+
+/* ---------- Footer ---------- */
+footer.footer{
+  background:var(--surface);
+  border-top:1px solid var(--border);
+  color:var(--muted);
+}
+
+/* ---------- Badges / Pills ---------- */
+.badge-soft{
+  display:inline-block;
+  padding:.4rem .72rem;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--brand) 12%, transparent);
+  color:var(--brand-600);
+  border:1px solid color-mix(in srgb, var(--brand) 25%, transparent);
+  font-weight:700; font-size:.85rem;
+}
+.state-pill{
+  display:inline-flex; align-items:center; gap:.45rem;
+  padding:.28rem .65rem; border-radius:999px; font-weight:700; font-size:.85rem;
+  border:1px solid var(--border); background:var(--surface); color:var(--muted);
+}
+.state-pill.success{ color:var(--success); border-color:color-mix(in srgb, var(--success) 35%, transparent); background:color-mix(in srgb, var(--success) 12%, transparent); }
+.state-pill.warning{ color:var(--warning); border-color:color-mix(in srgb, var(--warning) 35%, transparent); background:color-mix(in srgb, var(--warning) 12%, transparent); }
+.state-pill.danger { color:var(--danger);  border-color:color-mix(in srgb, var(--danger)  35%, transparent); background:color-mix(in srgb, var(--danger)  12%, transparent); }
+
+/* ---------- Page patterns ---------- */
+.catalogo .filter-card{ margin-bottom:1rem; }
+.admin-grid .table td:last-child{ width:320px; }
+.badge-code{ font-variant-numeric:tabular-nums; letter-spacing:.2px; }
+
+/* ---------- Validation (ASP.NET MVC) ---------- */
+.field-validation-error, .input-validation-error{ color:var(--danger); }
+.input-validation-error{
+  border-color:color-mix(in srgb, var(--danger) 60%, transparent) !important;
+  box-shadow:0 0 0 .22rem color-mix(in srgb, var(--danger) 20%, transparent) !important;
+}
+
+/* ---------- Utilities ---------- */
+.shadow-soft{ box-shadow:var(--shadow) !important; }
+.rounded-xl{ border-radius:var(--radius-lg) !important; }
+.text-muted-2{ color:var(--muted) !important; }
+.divider{ height:1px; background:var(--border); margin:1rem 0; }
+.minh-60{ min-height:60vh; }
+
+/* ---------- Smooth animations ---------- */
+*{ scroll-behavior:smooth; }
+.btn, .form-control, .form-select, .card, .table{ transition:all .15s ease; }

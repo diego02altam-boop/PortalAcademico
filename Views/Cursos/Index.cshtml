@@ -1,0 +1,66 @@
+@model IEnumerable<PortalAcademico.Models.Curso>
+@using PortalAcademico.ViewModels.Cursos
+@{
+    ViewData["Title"] = "Catálogo de cursos";
+    var filtros = ViewBag.Filtros as CatalogoFiltroVM ?? new CatalogoFiltroVM();
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-3">
+        <label class="form-label">Nombre / Código</label>
+        <input name="Nombre" value="@filtros.Nombre" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Créditos (min)</label>
+        <input name="CreditosMin" type="number" min="0" value="@(filtros.CreditosMin?.ToString())" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Créditos (max)</label>
+        <input name="CreditosMax" type="number" min="0" value="@(filtros.CreditosMax?.ToString())" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Hora inicio</label>
+        <input name="HoraInicio" type="time" value="@(filtros.HoraInicio?.ToString(@"hh\:mm"))" class="form-control" />
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Hora fin</label>
+        <input name="HoraFin" type="time" value="@(filtros.HoraFin?.ToString(@"hh\:mm"))" class="form-control" />
+    </div>
+    <div class="col-md-1 d-flex align-items-end">
+        <button class="btn btn-primary w-100" type="submit">Filtrar</button>
+    </div>
+
+    <div class="col-12">
+        @Html.ValidationSummary(excludePropertyErrors: true, message: null, htmlAttributes: new { @class = "text-danger" })
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th class="text-center">Créditos</th>
+            <th>Horario</th>
+            <th class="text-center">Cupo Máx.</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Codigo</td>
+            <td>@c.Nombre</td>
+            <td class="text-center">@c.Creditos</td>
+            <td>@c.HorarioInicio.ToString(@"hh\:mm") – @c.HorarioFin.ToString(@"hh\:mm")</td>
+            <td class="text-center">@c.CupoMaximo</td>
+            <td class="text-end">
+                <a asp-action="Details" asp-route-id="@c.Id" class="btn btn-sm btn-outline-primary">Ver detalle</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
