@@ -1,0 +1,36 @@
+@model PortalAcademico.Models.Curso
+@{
+    ViewData["Title"] = "Detalle del curso";
+}
+
+<h1>@Model.Nombre</h1>
+
+<!-- Alertas de feedback -->
+@if (TempData["Ok"] is string okMsg)
+{
+    <div class="alert alert-success">@okMsg</div>
+}
+@if (TempData["Error"] is string errMsg)
+{
+    <div class="alert alert-danger">@errMsg</div>
+}
+
+<div class="card">
+  <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Código</dt>     <dd class="col-sm-9">@Model.Codigo</dd>
+      <dt class="col-sm-3">Créditos</dt>   <dd class="col-sm-9">@Model.Creditos</dd>
+      <dt class="col-sm-3">Horario</dt>    <dd class="col-sm-9">@Model.HorarioInicio.ToString(@"hh\:mm") – @Model.HorarioFin.ToString(@"hh\:mm")</dd>
+      <dt class="col-sm-3">Cupo Máximo</dt><dd class="col-sm-9">@Model.CupoMaximo</dd>
+      <dt class="col-sm-3">Estado</dt>     <dd class="col-sm-9">@(Model.Activo ? "Activo" : "Inactivo")</dd>
+    </dl>
+
+    <form asp-controller="Matriculas" asp-action="Inscribirse" method="post" class="d-inline">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="cursoId" value="@Model.Id" />
+        <button type="submit" class="btn btn-success">Inscribirse</button>
+    </form>
+
+    <a asp-action="Index" class="btn btn-secondary ms-2">Volver</a>
+  </div>
+</div>

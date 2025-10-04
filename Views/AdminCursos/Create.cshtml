@@ -1,0 +1,57 @@
+@model PortalAcademico.Models.Curso
+@{
+    ViewData["Title"] = "Nuevo curso";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create" method="post" class="mt-3">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row g-3">
+        <div class="col-md-3">
+            <label asp-for="Codigo" class="form-label"></label>
+            <input asp-for="Codigo" class="form-control" />
+            <span asp-validation-for="Codigo" class="text-danger"></span>
+        </div>
+        <div class="col-md-9">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="Creditos" class="form-label"></label>
+            <input asp-for="Creditos" type="number" min="1" class="form-control" />
+            <span asp-validation-for="Creditos" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="CupoMaximo" class="form-label"></label>
+            <input asp-for="CupoMaximo" type="number" min="1" class="form-control" />
+            <span asp-validation-for="CupoMaximo" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="HorarioInicio" class="form-label"></label>
+            <input asp-for="HorarioInicio" type="time" class="form-control" />
+            <span asp-validation-for="HorarioInicio" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+            <label asp-for="HorarioFin" class="form-label"></label>
+            <input asp-for="HorarioFin" type="time" class="form-control" />
+            <span asp-validation-for="HorarioFin" class="text-danger"></span>
+        </div>
+        <div class="col-md-3 form-check mt-3 ms-2">
+            <input asp-for="Activo" class="form-check-input" />
+            <label asp-for="Activo" class="form-check-label"></label>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">Volver</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

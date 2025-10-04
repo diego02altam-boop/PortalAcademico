@@ -1,0 +1,29 @@
+@model PortalAcademico.Models.Curso
+@{
+    ViewData["Title"] = "Eliminar curso";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="alert alert-warning">
+    ¿Seguro que deseas eliminar este curso?
+</div>
+
+<div class="card mb-3">
+  <div class="card-body">
+    <dl class="row">
+      <dt class="col-sm-3">Código</dt>      <dd class="col-sm-9">@Model.Codigo</dd>
+      <dt class="col-sm-3">Nombre</dt>      <dd class="col-sm-9">@Model.Nombre</dd>
+      <dt class="col-sm-3">Créditos</dt>    <dd class="col-sm-9">@Model.Creditos</dd>
+      <dt class="col-sm-3">Cupo Máx.</dt>   <dd class="col-sm-9">@Model.CupoMaximo</dd>
+      <dt class="col-sm-3">Horario</dt>     <dd class="col-sm-9">@Model.HorarioInicio.ToString(@"hh\:mm") – @Model.HorarioFin.ToString(@"hh\:mm")</dd>
+      <dt class="col-sm-3">Activo</dt>      <dd class="col-sm-9">@(Model.Activo ? "Sí" : "No")</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post" class="d-inline">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+    </form>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+  </div>
+</div>
